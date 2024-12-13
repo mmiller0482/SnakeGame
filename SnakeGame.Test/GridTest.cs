@@ -33,6 +33,20 @@ public class GridTest
         
         Assert.Equal(expected, gut.Contents);
     }
+    [Fact]
+    public void TestSetCell_Coordinate_Valid()
+    {
+        Grid gut = Get2by2Grid('&');
+        char[,] expected =
+        {
+            {'#', '&'},
+            {'&', '&'},
+        };
+
+        gut.SetCell(new Coordinate2D(0, 0), '#');
+        
+        Assert.Equal(expected, gut.Contents);
+    }
 
 
     private static Grid Get2by2Grid(char @default)

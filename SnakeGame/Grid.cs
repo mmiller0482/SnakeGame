@@ -30,6 +30,11 @@ public class Grid
     {
         Contents[x, y] = value;
     }
+
+    public void SetCell(Coordinate2D coordinate, char value)
+    {
+        SetCell(coordinate.X, coordinate.Y, value);
+    }
     
     private static char[,] RawGridInitializer(int xSize, int ySize, char defaultValue)
     {
