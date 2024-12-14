@@ -7,6 +7,8 @@ public class Grid
 
     public int XSize { get; }
     public int YSize { get; }
+    
+    public char DefaultSymbol { get; }
     public char[,] Contents { get; }
     
 
@@ -14,6 +16,7 @@ public class Grid
     {
         XSize = xSize;
         YSize = ySize;
+        DefaultSymbol = defaultCellValue;
         Contents = RawGridInitializer(XSize, YSize, defaultCellValue);
     }
 
@@ -34,6 +37,16 @@ public class Grid
     public void SetCell(Coordinate2D coordinate, char value)
     {
         SetCell(coordinate.X, coordinate.Y, value);
+    }
+
+    public void ResetCell(int x, int y)
+    {
+        SetCell(x, y, DefaultSymbol);
+    }
+    
+    public void ResetCell(Coordinate2D coordinate)
+    {
+        SetCell(coordinate, DefaultSymbol);
     }
     
     private static char[,] RawGridInitializer(int xSize, int ySize, char defaultValue)
