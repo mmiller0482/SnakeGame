@@ -2,4 +2,6 @@
 
 using SnakeGame;
 
-Console.WriteLine("Dummy");
+Console.WriteLine("Welcome to Snake Game!");
+SnakeGameInstance game = new SnakeGameInstance();
+game.Run();
