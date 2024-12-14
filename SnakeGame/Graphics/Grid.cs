@@ -1,4 +1,4 @@
-namespace SnakeGame;
+namespace SnakeGame.Graphics;
 
 public class Grid
 {
@@ -38,12 +38,12 @@ public class Grid
     
     private static char[,] RawGridInitializer(int xSize, int ySize, char defaultValue)
     {
-        char[,] grid = new char[xSize, ySize];
-        for (int x = 0; x < xSize; x++)
+        char[,] grid = new char[ySize, xSize];
+        for (int y = 0; y < ySize; y++)
         {
-            for (int y = 0; y < ySize; y++)
+            for (int x = 0; x < xSize; x++)
             {
-                grid[x, y] = defaultValue;
+                grid[y, x] = defaultValue;
             }
         }
         

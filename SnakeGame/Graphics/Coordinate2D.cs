@@ -1,4 +1,4 @@
-namespace SnakeGame;
+namespace SnakeGame.Graphics;
 
 public class Coordinate2D(int x, int y)
 {

@@ -1,4 +1,6 @@
-namespace SnakeGame.Test;
+using SnakeGame.Graphics;
+
+namespace SnakeGame.Test.Graphics;
 
 public class GridTest
 {
@@ -22,7 +24,7 @@ public class GridTest
     [Fact]
     public void TestSetCell_Valid()
     {
-        Grid gut = Get2by2Grid('&');
+        Grid gut = Get2By2Grid('&');
         char[,] expected =
         {
             {'#', '&'},
@@ -36,7 +38,7 @@ public class GridTest
     [Fact]
     public void TestSetCell_Coordinate_Valid()
     {
-        Grid gut = Get2by2Grid('&');
+        Grid gut = Get2By2Grid('&');
         char[,] expected =
         {
             {'#', '&'},
@@ -49,7 +51,7 @@ public class GridTest
     }
 
 
-    private static Grid Get2by2Grid(char @default)
+    private static Grid Get2By2Grid(char @default)
     {
         return new Grid(2, 2, @default);
     }

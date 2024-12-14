@@ -1,3 +1,5 @@
+using SnakeGame.Graphics;
+
 namespace SnakeGame.Test;
 
 public class ScreenWriterTest

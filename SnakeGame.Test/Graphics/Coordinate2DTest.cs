@@ -1,4 +1,6 @@
-namespace SnakeGame.Test;
+using SnakeGame.Graphics;
+
+namespace SnakeGame.Test.Graphics;
 
 public class Coordinate2DTest
 {
