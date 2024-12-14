@@ -28,7 +28,7 @@ public class Grid
 
     public void SetCell(int x, int y, char value)
     {
-        Contents[x, y] = value;
+        Contents[y, x] = value;
     }
 
     public void SetCell(Coordinate2D coordinate, char value)

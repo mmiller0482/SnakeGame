@@ -25,13 +25,14 @@ public class GridTest
     public void TestSetCell_Valid()
     {
         Grid gut = Get2By2Grid('&');
+        Coordinate2D coordinate = new(0, 0);
         char[,] expected =
         {
             {'#', '&'},
             {'&', '&'},
         };
 
-        gut.SetCell(0, 0, '#');
+        gut.SetCell(coordinate, '#');
         
         Assert.Equal(expected, gut.Contents);
     }
