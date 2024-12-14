@@ -1,6 +1,6 @@
-using SnakeGame.Graphics;
+using SnakeGame.RawGraphics;
 
-namespace SnakeGame.Test.Graphics;
+namespace SnakeGame.Test.RawGraphics;
 
 public class GridTest
 {

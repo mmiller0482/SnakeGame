@@ -1,4 +1,4 @@
-using SnakeGame.Graphics;
+using SnakeGame.RawGraphics;
 
 namespace SnakeGame.Test;
 

@@ -1,4 +1,4 @@
-namespace SnakeGame.Graphics;
+namespace SnakeGame.RawGraphics;
 
 public class Grid
 {
