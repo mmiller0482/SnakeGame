@@ -19,16 +19,18 @@ public class Snake
         _startPosition = startPosition;
     }
 
+    // TODO: Probably need some better behavior when a snake has empty body.
+    public Coordinate2D Head => _body.FirstOrDefault(new Coordinate2D(0, 0));
+    
+    // TODO: Probably need some better behavior when a snake has empty body.
+    public Coordinate2D Tail => _body.LastOrDefault(new Coordinate2D(0, 0));
+    
+    public int Length => _body.Count;
+
     public void EatFood()
     {
         _shouldEat = true;
     }
-    
-    // TODO: Probably need some better behavior when a snake has empty body.
-    public Coordinate2D Head => _body.FirstOrDefault(new Coordinate2D(0, 0));
-
-    // TODO: Probably need some better behavior when a snake has empty body.
-    public Coordinate2D Tail => _body.LastOrDefault(new Coordinate2D(0, 0));
 
     public void Move(UserDirection userDirection)
     {
