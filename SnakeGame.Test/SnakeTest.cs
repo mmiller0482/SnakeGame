@@ -37,6 +37,43 @@ public class SnakeTest
         Assert.Equal(2, snake.Length);
     }
 
+    [Fact]
+    public void SnakeSelfCollisionLength1()
+    {
+        Snake snake = new Snake(new Coordinate2D(0, 0));
+        Assert.False(snake.SelfCollision());
+    }
+
+    [Fact]
+    public void SnakeSelfCollisionLength2()
+    {
+        Snake snake = new Snake(new Coordinate2D(0, 0));
+        // left
+        snake.EatFood();
+        snake.Move(UserDirection.Left);
+        Assert.Equal(2, snake.Length);
+        Assert.False(snake.SelfCollision());
+    }
+    [Fact]
+    public void SnakeSelfCollision_True()
+    {
+        Snake snake = new Snake(new Coordinate2D(0, 0));
+        // left
+        snake.EatFood();
+        snake.Move(UserDirection.Left);
+        // down
+        snake.EatFood();
+        snake.Move(UserDirection.Down);
+        //right
+        snake.EatFood();
+        snake.Move(UserDirection.Right);
+        // up
+        snake.EatFood();
+        snake.Move(UserDirection.Up);
+        
+        Assert.True(snake.SelfCollision());
+    }
+
 }
 
 public static class SnakeBuilder

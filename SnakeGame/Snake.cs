@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Runtime.InteropServices.JavaScript;
 using SnakeGame.RawGraphics;
 
@@ -73,20 +74,14 @@ public class Snake
         _body.AddFirst(_startPosition);
     }
 
-    //public void DetectCollision()
-    //{
-    //    var poppedStart = _body.First;
-    //    _body.RemoveFirst();
-    //    if (_body.Any(c => c == poppedStart!))
-    //    {
-    //        Reset();
-    //    }
-    //    else
-    //    {
-    //        _body.AddFirst(poppedStart);
-    //    }
-    //    
-    //}
+    public bool SelfCollision()
+    {
+        if (Length <= 1)
+        {
+            return false; // single point cannot collide with itself.
+        }
+        return _body.Skip(1).Any(segment => Equals(segment, Head));
+    }
 
     private void SnakeTranslate(int xMove, int yMove)
     {
