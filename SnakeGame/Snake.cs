@@ -1,5 +1,3 @@
-using System.Globalization;
-using System.Runtime.InteropServices.JavaScript;
 using SnakeGame.RawGraphics;
 
 namespace SnakeGame;
@@ -12,6 +10,7 @@ public class Snake
     private readonly LinkedList<Coordinate2D> _body = [];
 
     private bool _shouldEat = false;
+    private UserDirection _prevDirection = UserDirection.Right;
     
 
     public Snake(Coordinate2D startPosition)
@@ -35,6 +34,13 @@ public class Snake
 
     public void Move(UserDirection userDirection)
     {
+        if (UserDirectionOps.Opposite(userDirection) == _prevDirection)
+        {
+            userDirection = _prevDirection;
+        }
+        
+        _prevDirection = userDirection;
+        
         switch (userDirection)
         {
             case UserDirection.Up:
@@ -49,6 +55,8 @@ public class Snake
             case UserDirection.Right:
                 PointAndMoveRight();
                 break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(userDirection), userDirection, null);
         }
     }
 
