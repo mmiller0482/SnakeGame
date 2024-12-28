@@ -32,7 +32,7 @@ public class SnakeGameInstance
 
     private void Render()
     {
-        foreach (IPlottable plottable in _snakeGameLogic.Plottables)
+        foreach (IPlottable? plottable in _snakeGameLogic.Plottables)
         {
             plottable?.Plot(_gameBoard);
         }
@@ -42,29 +42,20 @@ public class SnakeGameInstance
 
     private void GetUserDirection()
     {
-        if (Console.KeyAvailable)
+        if (!Console.KeyAvailable) return;
+        var keyInfo = Console.ReadKey(intercept: true);
+        _direction = keyInfo.Key switch
         {
-            var keyInfo = Console.ReadKey(intercept: true);
-            switch (keyInfo.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    _direction = Up;
-                    break;
-                case ConsoleKey.DownArrow:
-                    _direction = Down;
-                    break;
-                case ConsoleKey.LeftArrow:
-                    _direction = Left;
-                    break;
-                case ConsoleKey.RightArrow:
-                    _direction = Right;
-                    break;
-            }
-        } 
+            ConsoleKey.UpArrow => Up,
+            ConsoleKey.DownArrow => Down,
+            ConsoleKey.LeftArrow => Left,
+            ConsoleKey.RightArrow => Right,
+            _ => _direction
+        };
     }
-    private void SimulateWait()
+    private static void SimulateWait()
     {
-            System.Threading.Thread.Sleep(50); // Control speed of snake movement
+            Thread.Sleep(50); // Control speed of snake movement
     }
     
     
