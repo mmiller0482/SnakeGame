@@ -11,12 +11,15 @@ public class Snake
 
     private bool _shouldEat = false;
     private UserDirection _prevDirection = UserDirection.Right;
+    private Coordinate2DFactory _coordinate2DFactory;
     
 
-    public Snake(Coordinate2D startPosition)
+    // TODO: Add another constructor using a default "nonwrapped" coordinate factory when available.
+    public Snake(Coordinate2D startPosition, Coordinate2DFactory coordinate2DFactory)
     {
         _body.AddFirst(startPosition);
         _startPosition = startPosition;
+        _coordinate2DFactory = coordinate2DFactory;
     }
 
     // TODO: Probably need some better behavior when a snake has empty body.
@@ -94,7 +97,7 @@ public class Snake
 
     private void SnakeTranslate(int xMove, int yMove)
     {
-        Coordinate2D newHead = new Coordinate2D(Head.X + xMove, Head.Y + yMove);
+        Coordinate2D newHead = _coordinate2DFactory.Create(Head.X + xMove, Head.Y + yMove);
         _body.AddFirst(newHead);
         if (_shouldEat)
         {

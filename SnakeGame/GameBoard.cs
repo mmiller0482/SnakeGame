@@ -6,24 +6,13 @@ public class GameBoard
 {
     private readonly List<Sprite> _sprites = new();
     private readonly Grid _grid;
-    private readonly bool _wrapAround;
 
     public GameBoard(Grid grid, bool wrapAround = false)
     {
         _grid = grid;
-        _wrapAround = wrapAround;
     }
 
-    public void AddSprite(Sprite sprite)
-    {
-        if (_wrapAround)
-        {
-            sprite = new Sprite(
-                Coordinate2DUtils.WrapCoordinate(sprite.Position, _grid.XSize, _grid.YSize),
-                sprite.Symbol);
-        }
-        _sprites.Add(sprite);
-    }
+    public void AddSprite(Sprite sprite) => _sprites.Add(sprite);
 
     public void Render()
     {
