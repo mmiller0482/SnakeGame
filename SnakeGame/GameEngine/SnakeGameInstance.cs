@@ -1,7 +1,6 @@
-using System.Drawing;
 using SnakeGame.RawGraphics;
 
-namespace SnakeGame;
+namespace SnakeGame.GameEngine;
 
 public class SnakeGameInstance
 {
