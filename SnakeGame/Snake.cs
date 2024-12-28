@@ -2,7 +2,7 @@ using SnakeGame.RawGraphics;
 
 namespace SnakeGame;
 
-public class Snake
+public class Snake : IPlottable
 {
     private readonly Coordinate2D _startPosition; 
     private const char SnakeSegmentSymbol = '#';
@@ -89,11 +89,12 @@ public class Snake
 
     private void PointAndMoveRight() => SnakeTranslate(1, 0);
 
-    public void SendToGameBoard(GameBoard gameBoard)
+    public void Plot(GameBoard gameBoard)
     {
         foreach (Coordinate2D segment in _body)
-        {
-            gameBoard.AddSprite(new Sprite(segment, SnakeSegmentSymbol));
+        { 
+            Sprite segmentSprite = new Sprite(segment, SnakeSegmentSymbol);
+            segmentSprite.Plot(gameBoard);
         }
     }
 

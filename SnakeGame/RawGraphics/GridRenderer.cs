@@ -1,8 +1,8 @@
 namespace SnakeGame.RawGraphics;
 
-public static class GridWriter
+public static class GridRenderer
 {
-    public static void Draw(Grid grid)
+    public static void Render(Grid grid)
     {
         ScreenWriter.Clear();
         for (int row = grid.Contents.GetLength(0) -1; row >= 0; row--)

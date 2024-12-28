@@ -1,56 +1,43 @@
 using SnakeGame.RawGraphics;
+using static SnakeGame.UserDirection;
 
 namespace SnakeGame.GameEngine;
 
 public class SnakeGameInstance
 {
-    private Grid _grid;
-    private GameBoard _gameBoard;
-    private Snake _snake;
-    private UserDirection _direction = UserDirection.Right;
-    private Coordinate2D _sentinelCoordinate = new Coordinate2D(1, 1);
-    private Coordinate2DFactory _coordinate2DFactory;
+    private readonly Grid _grid;
+    private readonly GameBoard _gameBoard;
+    private readonly SnakeGameLogic _snakeGameLogic;
+    private UserDirection _direction = Right;
 
     public SnakeGameInstance(int xSize=30, int ySize=30)
     {
         _grid = new Grid(xSize, ySize, ' ');
-        _sentinelCoordinate = new Coordinate2D(1, 1);
         _gameBoard = new GameBoard(_grid, true);
-        _coordinate2DFactory = new Coordinate2DFactory(xSize, ySize);
-        _snake = new Snake(_sentinelCoordinate, _coordinate2DFactory);
+        _snakeGameLogic = SnakeGameLogicFactory.Create(new Coordinate2D(1,1), new Coordinate2DFactory(xSize, ySize));
     }
+    
     public void Run()
     {
-        int cycles = 0;
         while (true)
         {
-            Draw();
+            // Always Render First
+            Render();
             SimulateWait();
             GetUserDirection();
-            // Operations for this cycle
-            if (cycles % 10 == 0)
-            {
-                _snake.EatFood();
-            }
-            _snake.Move(_direction);
-            if (_snake.SelfCollision())
-            {
-                _snake.Reset();
-            }
+            _snakeGameLogic.Update(_direction);
             _gameBoard.Clear();
-            cycles++;
         }
     }
 
-    private void SimulateWait()
+    private void Render()
     {
-            System.Threading.Thread.Sleep(50); // Control speed of snake movement
-    }
-    private void Draw()
-    {
-        _snake.SendToGameBoard(_gameBoard); 
+        foreach (IPlottable plottable in _snakeGameLogic.Plottables)
+        {
+            plottable?.Plot(_gameBoard);
+        }
         _gameBoard.Render();
-        GridWriter.Draw(_grid);
+        GridRenderer.Render(_grid);
     }
 
     private void GetUserDirection()
@@ -61,19 +48,23 @@ public class SnakeGameInstance
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    _direction = UserDirection.Up;
+                    _direction = Up;
                     break;
                 case ConsoleKey.DownArrow:
-                    _direction = UserDirection.Down;
+                    _direction = Down;
                     break;
                 case ConsoleKey.LeftArrow:
-                    _direction = UserDirection.Left;
+                    _direction = Left;
                     break;
                 case ConsoleKey.RightArrow:
-                    _direction = UserDirection.Right;
+                    _direction = Right;
                     break;
             }
         } 
+    }
+    private void SimulateWait()
+    {
+            System.Threading.Thread.Sleep(50); // Control speed of snake movement
     }
     
     
