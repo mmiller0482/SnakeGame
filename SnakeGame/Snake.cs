@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.JavaScript;
 using SnakeGame.RawGraphics;
 
 namespace SnakeGame;
@@ -11,6 +10,7 @@ public class Snake
     private readonly LinkedList<Coordinate2D> _body = [];
 
     private bool _shouldEat = false;
+    private UserDirection _prevDirection = UserDirection.Right;
     
 
     public Snake(Coordinate2D startPosition)
@@ -19,19 +19,28 @@ public class Snake
         _startPosition = startPosition;
     }
 
+    // TODO: Probably need some better behavior when a snake has empty body.
+    public Coordinate2D Head => _body.FirstOrDefault(new Coordinate2D(0, 0));
+    
+    // TODO: Probably need some better behavior when a snake has empty body.
+    public Coordinate2D Tail => _body.LastOrDefault(new Coordinate2D(0, 0));
+    
+    public int Length => _body.Count;
+
     public void EatFood()
     {
         _shouldEat = true;
     }
-    
-    // TODO: Probably need some better behavior when a snake has empty body.
-    public Coordinate2D Head => _body.FirstOrDefault(new Coordinate2D(0, 0));
-
-    // TODO: Probably need some better behavior when a snake has empty body.
-    public Coordinate2D Tail => _body.LastOrDefault(new Coordinate2D(0, 0));
 
     public void Move(UserDirection userDirection)
     {
+        if (UserDirectionOps.Opposite(userDirection) == _prevDirection)
+        {
+            userDirection = _prevDirection;
+        }
+        
+        _prevDirection = userDirection;
+        
         switch (userDirection)
         {
             case UserDirection.Up:
@@ -46,15 +55,18 @@ public class Snake
             case UserDirection.Right:
                 PointAndMoveRight();
                 break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(userDirection), userDirection, null);
         }
     }
-    public void PointAndMoveUp() => SnakeTranslate(0, 1);
 
-    public void PointAndMoveDown() => SnakeTranslate(0, -1);
+    private void PointAndMoveUp() => SnakeTranslate(0, 1);
 
-    public void PointAndMoveLeft() => SnakeTranslate(-1, 0);
+    private void PointAndMoveDown() => SnakeTranslate(0, -1);
 
-    public void PointAndMoveRight() => SnakeTranslate(1, 0);
+    private void PointAndMoveLeft() => SnakeTranslate(-1, 0);
+
+    private void PointAndMoveRight() => SnakeTranslate(1, 0);
 
     public void SendToGameBoard(GameBoard gameBoard)
     {
@@ -71,20 +83,14 @@ public class Snake
         _body.AddFirst(_startPosition);
     }
 
-    //public void DetectCollision()
-    //{
-    //    var poppedStart = _body.First;
-    //    _body.RemoveFirst();
-    //    if (_body.Any(c => c == poppedStart!))
-    //    {
-    //        Reset();
-    //    }
-    //    else
-    //    {
-    //        _body.AddFirst(poppedStart);
-    //    }
-    //    
-    //}
+    public bool SelfCollision()
+    {
+        if (Length <= 1)
+        {
+            return false; // single point cannot collide with itself.
+        }
+        return _body.Skip(1).Any(segment => Equals(segment, Head));
+    }
 
     private void SnakeTranslate(int xMove, int yMove)
     {

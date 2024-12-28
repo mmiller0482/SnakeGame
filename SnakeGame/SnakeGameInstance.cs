@@ -31,6 +31,10 @@ public class SnakeGameInstance
                 _snake.EatFood();
             }
             _snake.Move(_direction);
+            if (_snake.SelfCollision())
+            {
+                _snake.Reset();
+            }
             _gameBoard.Clear();
             cycles++;
         }
@@ -45,7 +49,6 @@ public class SnakeGameInstance
         _snake.SendToGameBoard(_gameBoard); 
         _gameBoard.Render();
         GridWriter.Draw(_grid);
-         
     }
 
     private void GetUserDirection()
