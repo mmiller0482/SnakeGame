@@ -1,8 +1,6 @@
-using SnakeGame.RawGraphics;
+namespace SnakeGame.RawGraphics;
 
-namespace SnakeGame;
-
-public class Sprite
+public class Sprite : IPlottable
 {
     public Coordinate2D Position { get; }
     public char Symbol { get; }
@@ -11,5 +9,10 @@ public class Sprite
     {
         Position = position;
         Symbol = symbol;
+    }
+
+    public void Plot(GameBoard gameBoard)
+    {
+        gameBoard.AddSprite(this);
     }
 }

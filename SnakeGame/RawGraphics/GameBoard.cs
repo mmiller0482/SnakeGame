@@ -1,6 +1,4 @@
-using SnakeGame.RawGraphics;
-
-namespace SnakeGame;
+namespace SnakeGame.RawGraphics;
 
 public class GameBoard
 {
