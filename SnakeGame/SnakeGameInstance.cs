@@ -10,12 +10,15 @@ public class SnakeGameInstance
     private Snake _snake;
     private UserDirection _direction = UserDirection.Right;
     private Coordinate2D _sentinelCoordinate = new Coordinate2D(1, 1);
+    private Coordinate2DFactory _coordinate2DFactory;
 
-    public SnakeGameInstance()
+    public SnakeGameInstance(int xSize=30, int ySize=30)
     {
-        _grid = new Grid(30, 30, ' ');
+        _grid = new Grid(xSize, ySize, ' ');
+        _sentinelCoordinate = new Coordinate2D(1, 1);
         _gameBoard = new GameBoard(_grid, true);
-        _snake = new Snake(_sentinelCoordinate);
+        _coordinate2DFactory = new Coordinate2DFactory(xSize, ySize);
+        _snake = new Snake(_sentinelCoordinate, _coordinate2DFactory);
     }
     public void Run()
     {

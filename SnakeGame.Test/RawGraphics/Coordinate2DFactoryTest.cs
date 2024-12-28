@@ -2,7 +2,7 @@ using SnakeGame.RawGraphics;
 
 namespace SnakeGame.Test.RawGraphics;
 
-public class Coordinate2DUtilsTest
+public class Coordinate2DFactoryTest
 {
     [Theory]
     [InlineData(0,0,0,0)]
@@ -13,7 +13,7 @@ public class Coordinate2DUtilsTest
         Coordinate2D origin = new(origX, origY);
         Coordinate2D expect = new(expectX, expectY);
 
-        Coordinate2D res = Coordinate2DUtils.WrapCoordinate(origin, 2, 2);
+        Coordinate2D res = Coordinate2DFactory.WrapCoordinate(origin, 2, 2);
         
         Assert.Equal(expect, res);
     }
@@ -29,6 +29,6 @@ public class Coordinate2DUtilsTest
     [InlineData(4, 2, 0)]
     public void TestMyModulo(int left, int right, int expectedResult)
     {
-        Assert.Equal(expectedResult, Coordinate2DUtils.ComputeWrappedInteger(left, right));
+        Assert.Equal(expectedResult, Coordinate2DFactory.ComputeWrappedInteger(left, right));
     }
 }

@@ -9,21 +9,42 @@ public class Snake
     
     private readonly LinkedList<Coordinate2D> _body = [];
 
-    private bool _shouldEat = false;
+    private bool _shouldEat;
     private UserDirection _prevDirection = UserDirection.Right;
+    private readonly Coordinate2DFactory _coordinate2DFactory;
     
 
-    public Snake(Coordinate2D startPosition)
+    // TODO: Add another constructor using a default "nonwrapped" coordinate factory when available.
+    public Snake(Coordinate2D startPosition, Coordinate2DFactory coordinate2DFactory)
     {
         _body.AddFirst(startPosition);
         _startPosition = startPosition;
+        _coordinate2DFactory = coordinate2DFactory;
     }
 
-    // TODO: Probably need some better behavior when a snake has empty body.
-    public Coordinate2D Head => _body.FirstOrDefault(new Coordinate2D(0, 0));
-    
-    // TODO: Probably need some better behavior when a snake has empty body.
-    public Coordinate2D Tail => _body.LastOrDefault(new Coordinate2D(0, 0));
+    public Coordinate2D Head
+    {
+        get
+        {
+            if (_body.First == null)
+            {
+                throw new InvalidOperationException("The snake has no head because its body is empty.");
+            }
+            return _body.First.Value;
+        }
+    }
+
+    public Coordinate2D Tail
+    {
+        get
+        {
+            if (_body.Last == null)
+            {
+                throw new InvalidOperationException("The snake has no tail because its body is empty.");
+            }
+            return _body.Last.Value;
+        }
+    } 
     
     public int Length => _body.Count;
 
@@ -84,17 +105,12 @@ public class Snake
     }
 
     public bool SelfCollision()
-    {
-        if (Length <= 1)
-        {
-            return false; // single point cannot collide with itself.
-        }
-        return _body.Skip(1).Any(segment => Equals(segment, Head));
-    }
+        // single point cannot collide with itself.
+        =>  Length > 1 && _body.Skip(1).Any(segment => Equals(segment, Head));
 
     private void SnakeTranslate(int xMove, int yMove)
     {
-        Coordinate2D newHead = new Coordinate2D(Head.X + xMove, Head.Y + yMove);
+        Coordinate2D newHead = _coordinate2DFactory.Create(Head.X + xMove, Head.Y + yMove);
         _body.AddFirst(newHead);
         if (_shouldEat)
         {
