@@ -51,13 +51,14 @@ public class Snake
                 break;
         }
     }
-    public void PointAndMoveUp() => SnakeTranslate(0, 1);
 
-    public void PointAndMoveDown() => SnakeTranslate(0, -1);
+    private void PointAndMoveUp() => SnakeTranslate(0, 1);
 
-    public void PointAndMoveLeft() => SnakeTranslate(-1, 0);
+    private void PointAndMoveDown() => SnakeTranslate(0, -1);
 
-    public void PointAndMoveRight() => SnakeTranslate(1, 0);
+    private void PointAndMoveLeft() => SnakeTranslate(-1, 0);
+
+    private void PointAndMoveRight() => SnakeTranslate(1, 0);
 
     public void SendToGameBoard(GameBoard gameBoard)
     {
