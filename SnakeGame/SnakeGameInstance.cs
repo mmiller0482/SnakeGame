@@ -13,7 +13,7 @@ public class SnakeGameInstance
 
     public SnakeGameInstance()
     {
-        _grid = new Grid(100, 30, ' ');
+        _grid = new Grid(30, 30, ' ');
         _gameBoard = new GameBoard(_grid, true);
         _snake = new Snake(_sentinelCoordinate);
     }

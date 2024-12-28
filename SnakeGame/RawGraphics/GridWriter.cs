@@ -12,7 +12,7 @@ public static class GridWriter
             {
                 rowBuffer[col] = grid.Contents[row, col];
             }
-            ScreenWriter.WriteLine(rowBuffer);
+            ScreenWriter.WriteNormalLine(rowBuffer);
         }
  
     }
