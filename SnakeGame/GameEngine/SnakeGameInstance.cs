@@ -3,6 +3,11 @@ using static SnakeGame.UserDirection;
 
 namespace SnakeGame.GameEngine;
 
+    
+/// <summary>
+/// Represents the main game loop and instance manager for the Snake game.
+/// Manages rendering, user input, and interaction with game logic components.
+/// </summary>   
 public class SnakeGameInstance
 {
     private readonly Grid _grid;
@@ -17,6 +22,10 @@ public class SnakeGameInstance
         _snakeGameLogic = SnakeGameLogicFactory.Create(new Coordinate2D(1,1), new Coordinate2DFactory(xSize, ySize));
     }
     
+    /// <summary>
+    /// Starts the game loop, managing rendering, user input, and game updates.
+    /// This method runs indefinitely until the application is terminated.
+    /// </summary> 
     public void Run()
     {
         while (true)
@@ -29,7 +38,11 @@ public class SnakeGameInstance
             _gameBoard.Clear();
         }
     }
-
+    
+    /// <summary>
+    /// Renders the current game state by plotting all plottable entities onto the game board
+    /// and drawing the grid to the console.
+    /// </summary>
     private void Render()
     {
         foreach (IPlottable? plottable in _snakeGameLogic.Plottables)
@@ -53,10 +66,13 @@ public class SnakeGameInstance
             _ => _direction
         };
     }
+    
+    /// <summary>
+    /// Introduces a short delay to control the speed of the game loop.
+    /// Adjusts the frequency of snake movement and rendering.
+    /// </summary>
     private static void SimulateWait()
     {
             Thread.Sleep(50); // Control speed of snake movement
     }
-    
-    
 }
