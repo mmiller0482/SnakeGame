@@ -6,26 +6,24 @@ namespace SnakeGame;
 public class SnakeGameLogic
 {
     private readonly Snake _snake;
-    private readonly Coordinate2DFactory _coordinate2DFactory;
-    private readonly IPlottable?[] _plottables;
-    private int _cycles;
+    private readonly FoodGen _foodGen;
+    private Sprite? _food;
 
     public SnakeGameLogic(Snake snake, Coordinate2DFactory coordinate2DFactory)
     {
-        _coordinate2DFactory = coordinate2DFactory;
         _snake = snake;
-        _plottables = [_snake];
-        _cycles = 0;
+        _foodGen = new FoodGen(coordinate2DFactory);
     }
-    
-    public IEnumerable<IPlottable?>  Plottables => _plottables;
+
+    public IEnumerable<IPlottable?> Plottables => [_snake, _food];
 
     public void Update(UserDirection direction)
     {
-        _cycles++;
-        if (_cycles % 10 == 0)
+        _food ??= GenerateFood();
+        if (_snake.CoordinateAtHead(_food.Position))
         {
             _snake.EatFood();
+            _food = GenerateFood();
         }
         _snake.Move(direction);
 
@@ -34,6 +32,8 @@ public class SnakeGameLogic
             ResetGame();
         }
     }
+
+    private Sprite GenerateFood() => _foodGen.RandomFood(_snake.Segments);
 
     private void ResetGame()
     {

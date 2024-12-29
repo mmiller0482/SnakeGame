@@ -73,6 +73,6 @@ public class SnakeGameInstance
     /// </summary>
     private static void SimulateWait()
     {
-            Thread.Sleep(50); // Control speed of snake movement
+            Thread.Sleep(100); // Control speed of snake movement
     }
 }
