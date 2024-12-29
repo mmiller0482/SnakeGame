@@ -105,6 +105,11 @@ public class Snake : IPlottable
         _body.AddFirst(_startPosition);
     }
 
+    public bool CoordinateOnSnake(Coordinate2D coordinate) => _body.Any(segment => Equals(segment, coordinate));
+
+    public bool CoordinateAtHead(Coordinate2D coordinate) => Equals(coordinate, Head);
+    public bool CoordinateAtTail(Coordinate2D coordinate) => Equals(coordinate, Tail);
+    
     public bool SelfCollision()
         // single point cannot collide with itself.
         =>  Length > 1 && _body.Skip(1).Any(segment => Equals(segment, Head));
