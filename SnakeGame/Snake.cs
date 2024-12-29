@@ -46,6 +46,8 @@ public class Snake : IPlottable
         }
     } 
     
+    public IEnumerable<Coordinate2D> Segments => _body;
+    
     public int Length => _body.Count;
 
     public void EatFood()

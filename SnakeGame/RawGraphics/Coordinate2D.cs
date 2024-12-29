@@ -1,15 +1,25 @@
 namespace SnakeGame.RawGraphics;
 
-public class Coordinate2D(int x, int y)
+public sealed class Coordinate2D(int x, int y): IEquatable<Coordinate2D>
 {
     public int X { get; } = x;
     public int Y { get; } = y;
     
     public override string ToString() => $"({X}, {Y})";
 
+    public bool Equals(Coordinate2D? other)
+    {
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return X == other.X && Y == other.Y;
+    }
+    
     public override bool Equals(object? obj)
     {
-        return obj is Coordinate2D coordinate2D && X == coordinate2D.X && Y == coordinate2D.Y;
+        if (obj is null) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != GetType()) return false;
+        return Equals((Coordinate2D)obj);
     }
 
     public override int GetHashCode()

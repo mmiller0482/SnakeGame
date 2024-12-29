@@ -6,20 +6,12 @@ namespace SnakeGame;
 public class SnakeGameLogic
 {
     private readonly Snake _snake;
-    private Sprite? _food;
-    private readonly Coordinate2DFactory _coordinate2DFactory;
     private readonly FoodGen _foodGen;
-    private int _xMax; 
-    private int _yMax;
-    private Random _random;
+    private Sprite? _food;
 
     public SnakeGameLogic(Snake snake, Coordinate2DFactory coordinate2DFactory)
     {
-        _coordinate2DFactory = coordinate2DFactory;
         _snake = snake;
-        _xMax = coordinate2DFactory.XMax;
-        _yMax = coordinate2DFactory.YMax;
-        _random = new Random();
         _foodGen = new FoodGen(coordinate2DFactory);
     }
 
@@ -41,20 +33,7 @@ public class SnakeGameLogic
         }
     }
 
-    private Sprite GenerateFood()
-    {
-        Sprite food;
-        do
-        {
-            // generate x
-            int foodLocX = _random.Next(0, _xMax);
-            // generate y
-            int foodLocY = _random.Next(0, _yMax);
-            food = _foodGen.FoodAt(foodLocX, foodLocY);
-            
-        } while (_snake.CoordinateOnSnake(food.Position));
-        return food;
-    }
+    private Sprite GenerateFood() => _foodGen.RandomFood(_snake.Segments);
 
     private void ResetGame()
     {
