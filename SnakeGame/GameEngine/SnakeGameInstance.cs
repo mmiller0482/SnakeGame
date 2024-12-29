@@ -15,7 +15,7 @@ public class SnakeGameInstance
     private readonly SnakeGameLogic _snakeGameLogic;
     private UserDirection _direction = Right;
 
-    public SnakeGameInstance(int xSize=30, int ySize=30)
+    public SnakeGameInstance(int xSize=50, int ySize=30)
     {
         _grid = new Grid(xSize, ySize, ' ');
         _gameBoard = new GameBoard(_grid, true);
