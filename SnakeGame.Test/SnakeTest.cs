@@ -1,3 +1,4 @@
+using AsciiGameEngine;
 using AsciiGraphics;
 
 namespace SnakeGame.Test;

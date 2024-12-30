@@ -1,4 +1,4 @@
-namespace SnakeGame;
+namespace AsciiGameEngine;
 
 public static class UserDirectionOps
 {

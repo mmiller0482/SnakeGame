@@ -1,9 +1,10 @@
+using AsciiGameEngine;
 using AsciiGraphics;
 
 namespace SnakeGame;
 
 
-public class SnakeGameLogic
+public class SnakeGameLogic : IAsciiGameLogic
 {
     private readonly Snake _snake;
     private readonly FoodGen _foodGen;
