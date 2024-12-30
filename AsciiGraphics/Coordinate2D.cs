@@ -1,4 +1,4 @@
-namespace SnakeGame.RawGraphics;
+namespace AsciiGraphics;
 
 public sealed class Coordinate2D(int x, int y): IEquatable<Coordinate2D>
 {

@@ -1,25 +1,25 @@
-using SnakeGame.RawGraphics;
-using static SnakeGame.UserDirection;
+using AsciiGraphics;
+using static AsciiGameEngine.UserDirection;
 
-namespace SnakeGame.GameEngine;
+namespace AsciiGameEngine;
 
     
 /// <summary>
-/// Represents the main game loop and instance manager for the Snake game.
+/// Represents the main game loop and instance manager for the ascii game.
 /// Manages rendering, user input, and interaction with game logic components.
 /// </summary>   
-public class SnakeGameInstance
+public class AsciiGameInstance
 {
     private readonly Grid _grid;
     private readonly GameBoard _gameBoard;
-    private readonly SnakeGameLogic _snakeGameLogic;
+    private readonly IAsciiGameLogic _asciiGameLogic;
     private UserDirection _direction = Right;
 
-    public SnakeGameInstance(int xSize=50, int ySize=30)
+    public AsciiGameInstance(int xSize, int ySize, IAsciiGameLogic asciiGameLogic)
     {
         _grid = new Grid(xSize, ySize, ' ');
         _gameBoard = new GameBoard(_grid, true);
-        _snakeGameLogic = SnakeGameLogicFactory.Create(new Coordinate2D(1,1), new Coordinate2DFactory(xSize, ySize));
+        _asciiGameLogic = asciiGameLogic;
     }
     
     /// <summary>
@@ -34,7 +34,7 @@ public class SnakeGameInstance
             Render();
             SimulateWait();
             GetUserDirection();
-            _snakeGameLogic.Update(_direction);
+            _asciiGameLogic.Update(_direction);
             _gameBoard.Clear();
         }
     }
@@ -45,7 +45,7 @@ public class SnakeGameInstance
     /// </summary>
     private void Render()
     {
-        foreach (IPlottable? plottable in _snakeGameLogic.Plottables)
+        foreach (IPlottable? plottable in _asciiGameLogic.Plottables)
         {
             plottable?.Plot(_gameBoard);
         }
@@ -69,10 +69,10 @@ public class SnakeGameInstance
     
     /// <summary>
     /// Introduces a short delay to control the speed of the game loop.
-    /// Adjusts the frequency of snake movement and rendering.
     /// </summary>
     private static void SimulateWait()
     {
+            // TODO: Make this sleep time configurable & changeable.
             Thread.Sleep(100); // Control speed of snake movement
     }
 }

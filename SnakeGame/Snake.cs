@@ -1,4 +1,6 @@
-using SnakeGame.RawGraphics;
+
+using AsciiGameEngine;
+using AsciiGraphics;
 
 namespace SnakeGame;
 
