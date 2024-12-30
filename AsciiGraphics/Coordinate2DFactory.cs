@@ -1,4 +1,4 @@
-namespace SnakeGame.RawGraphics;
+namespace AsciiGraphics;
 
 // TODO: Extract an Interface out of this.
 public class Coordinate2DFactory

@@ -1,4 +1,4 @@
-namespace SnakeGame.RawGraphics;
+namespace AsciiGraphics;
 
 public static class ScreenWriter
 {
